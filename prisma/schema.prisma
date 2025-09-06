@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  source       String
+  description  String
+  score        Int?     // Optional, as it's assigned after creation
+  assignedTo   String?  // Can be 'Senior Sales', 'Junior Sales', or 'Nurture Later'
+  createdAt    DateTime @default(now())
+}
